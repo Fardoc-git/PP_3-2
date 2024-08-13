@@ -17,7 +17,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService implements UserDetailsService, FaceOfUserService {
 
     private final UserRepository userRepository;
 
@@ -26,17 +26,14 @@ public class UserService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
-    @Transactional
     public User findByLastName(String lastname) {
         return userRepository.findByLastName(lastname);
     }
 
-    @Transactional
     public Optional<User> findById(Long id) {
         return userRepository.findById(id);
     }
 
-    @Transactional
     public List<User> findAll() {
         return userRepository.findAll();
     }
@@ -51,7 +48,6 @@ public class UserService implements UserDetailsService {
         userRepository.deleteById(id);
     }
 
-    @Transactional
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
         User user = findByLastName(name);

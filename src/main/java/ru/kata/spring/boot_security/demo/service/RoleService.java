@@ -4,12 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.repository.RoleRepository;
-import javax.transaction.Transactional;
+
 import java.util.HashSet;
 import java.util.Set;
 
 @Service
-public class RoleService {
+public class RoleService implements FaceOfRoleService {
 
     private final RoleRepository roleRepository;
 
@@ -18,7 +18,6 @@ public class RoleService {
         this.roleRepository = roleRepository;
     }
 
-    @Transactional
     public Set<Role> findAllRoles() {
         return new HashSet<>(roleRepository.findAll());
     }
